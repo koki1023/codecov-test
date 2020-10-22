@@ -12,7 +12,7 @@ SimpleCov.formatter =
     SimpleCov::Formatter::HTMLFormatter
   end
 
-SimpleCov.start
+SimpleCov.start 'rails'
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
