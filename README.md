@@ -22,4 +22,4 @@ Things you may want to cover:
 * Deployment instructions
 
 
-[![codecov](https://codecov.io/gh/koki1023/codecov-test/branch/master/graph/badge.svg?token=PABVUH2CHY)](undefined)
+[![codecov](https://codecov.io/gh/koki1023/codecov-test/branch/master/graph/badge.svg?token=PABVUH2CHY)](https://app.codecov.io/gh/koki1023/codecov-test)
