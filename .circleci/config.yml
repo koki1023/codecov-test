@@ -14,3 +14,12 @@ jobs:
           command: bundle -v
       - ruby/bundle-install
 
+      # Database setup
+      - run: bundle exec rails db:create
+      - run: bundle exec rails db:schema:load
+     # run tests!
+      - run:
+          name: run tests
+          command: bundle exec rails test
+
+
