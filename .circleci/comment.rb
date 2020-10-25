@@ -29,10 +29,10 @@ def get_artifacts
         exit(0)
     end
 
-    if response.code >= 200 && response.code < 300
+    if response.is_a?(Net::HTTPSuccess)
        response.body
     else
-        puts "Net Request failed, status code: #{response.code}"
+        puts "Net Request failed, message: #{response.message}"
         exit(0)
     end
 end
