@@ -20,7 +20,7 @@ def get_artifacts
         "Circle-Token" => CIRCLE_CI_TOKEN
     })
 
-    exit(0)
+    exit(1)
 
     begin
         response = http.request(request)
@@ -30,7 +30,7 @@ def get_artifacts
     end
 
     if response.code >= 200 && response.code < 300
-       response.body 
+       response.body
     else
         puts "Net Request failed, status code: #{response.code}"
         exit(0)
