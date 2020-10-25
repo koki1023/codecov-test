@@ -1,0 +1,16 @@
+# docs: https://docs.codecov.io/docs/commit-status
+# default parameters: https://docs.codecov.io/v4.3.6/docs/codecov-yaml#section-default-yaml
+coverage:
+  status:
+    patch: off
+    project:
+      default:
+        target: 78%
+
+comment:
+  layout: files
+  branches: *
+
+parsers:
+  v1:
+    include_full_missed_files: false

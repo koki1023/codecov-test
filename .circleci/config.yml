@@ -9,8 +9,35 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
+
+      - restore_cache:
+          keys:
+            - codecov-test-ci-gem-{{ checksum "Gemfile.lock" }}
+            # Find the most recent cache
+            - codecov-test-ci-gem-
+
       - run:
           name: Which bundler?
           command: bundle -v
-      - ruby/bundle-install
+
+      - run: bundle install -j3 --retry=3 --path vendor/bundle
+
+      - save_cache:
+          key: codecov-test-ci-gem-{{ checksum "Gemfile.lock" }}
+          paths:
+            - "~/codecov-test/vendor/bundle"
+
+      # Database setup
+      - run: bundle exec rails db:create
+      - run: bundle exec rails db:schema:load
+     # run tests!
+      - run:
+          name: run tests
+          command: bundle exec rails test
+      - store_artifacts:
+          path: coverage
+      - run:
+          name: notify coverage report url to pr
+          command: bundle exec ruby ./.circleci/comment.rb
+
 
