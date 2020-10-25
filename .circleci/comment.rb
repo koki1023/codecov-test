@@ -20,8 +20,6 @@ def get_artifacts
         "Circle-Token" => CIRCLE_CI_TOKEN
     })
 
-    exit(1)
-
     begin
         response = http.request(request)
     rescue => e
@@ -38,8 +36,14 @@ def get_artifacts
 end
 
 def get_artifact_url
-    artifacts = Oj.load(get_artifacts, mode: :compat)
-    index_html_artifact = artifacts.find { |artifact| artifact["path"] == ARTIFACT_INDEX_PATH }
+    raw_artifacts = get_artifacts
+    if raw_artifacts.nil?
+        puts "Got artifact body is nil"
+        exit(0)
+    end
+ 
+    parsed_artifacts = Oj.load(raw_artifacts, mode: :compat)
+    index_html_artifact = parsed_artifacts.find { |artifact| artifact["path"] == ARTIFACT_INDEX_PATH }
 
     if index_html_artifact.nil?
         puts "Failed to get index html artifact"
@@ -58,7 +62,7 @@ def notify_coverage_report_url
         exit(0)
     end
 
-    puts "Succeeded to notify report url"
+    puts "Succeeded to notify coverage report url"
 end
 
 def delete_existing_reports
