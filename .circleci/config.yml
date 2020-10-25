@@ -21,5 +21,7 @@ jobs:
       - run:
           name: run tests
           command: bundle exec rails test
+      - store_artifacts:
+          path: coverage
 
 

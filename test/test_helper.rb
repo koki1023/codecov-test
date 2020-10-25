@@ -3,15 +3,6 @@ require_relative '../config/environment'
 require 'rails/test_help'
 
 require "simplecov"
-
-require 'codecov'
-SimpleCov.formatter =
-  if ENV["CI"] == "true"
-    SimpleCov::Formatter::Codecov
-  else
-    SimpleCov::Formatter::HTMLFormatter
-  end
-
 SimpleCov.start 'rails'
 
 class ActiveSupport::TestCase
