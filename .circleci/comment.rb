@@ -62,7 +62,7 @@ def delete_existing_reports
     reporter_user_comment_ids.each do |id| 
         begin
             puts "Will delete comment, id: #{id}"
-            github.issues.comments.delete(USER, REPO, id)
+            GITHUB_CLIENT.issues.comments.delete(USER, REPO, id)
         rescue Github::Error::GithubError => e
             puts "Faile to delete comment: #{e.message}"
         end

@@ -9,10 +9,23 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
+
+      - restore_cache:
+          keys:
+            - codecov-test-ci-gem-{{ checksum "Gemfile.lock" }}
+            # Find the most recent cache
+            - codecov-test-ci-gem-
+
       - run:
           name: Which bundler?
           command: bundle -v
+
       - ruby/bundle-install
+
+      - save_cache:
+          key: codecov-test-ci-gem-{{ checksum "Gemfile.lock" }}
+          paths:
+            - "~/codecov-test/vendor/bundle"
 
       # Database setup
       - run: bundle exec rails db:create
