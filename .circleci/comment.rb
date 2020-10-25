@@ -14,8 +14,8 @@ def get_artifacts
     http = Net::HTTP.new('circleci.com', 443)
     http.use_ssl = true
 
-    puts "Will get artifacts of #{CIRCLE_BUILD_NUM} build"
-    request = Net::HTTP::Get.new("/api/v1.1/project/github/#{USER}/#{REPO}/#{CIRCLE_BUILD_NUM}/artifacts", {
+    puts "Will get artifacts of #{ENV["CIRCLE_BUILD_NUM"]} build"
+    request = Net::HTTP::Get.new("/api/v1.1/project/github/#{USER}/#{REPO}/#{ENV["CIRCLE_BUILD_NUM"]}/artifacts", {
         "Content-Type" => "application/json",
         "Circle-Token" => CIRCLE_CI_TOKEN
     })
@@ -54,7 +54,7 @@ end
 def delete_existing_reports
     comments = GITHUB_CLIENT.issues.comments.list(USER, REPO, '3').body
     reporter_user_comment_ids = comments.map do |comment|
-        if comment.dig(:user, :login) == USER
+        if comment.user.login == USER
             comment.id
         end
     end.compact
