@@ -20,7 +20,7 @@ jobs:
           name: Which bundler?
           command: bundle -v
 
-      - ruby/bundle-install
+      - run: bundle install -j3 --retry=3 --path vendor/bundle
 
       - save_cache:
           key: codecov-test-ci-gem-{{ checksum "Gemfile.lock" }}

@@ -19,10 +19,20 @@ def get_artifacts
         "Content-Type" => "application/json",
         "Circle-Token" => CIRCLE_CI_TOKEN
     })
+
+    exit(0)
+
     begin
-        http.request(request).body
+        response = http.request(request)
     rescue => e
         puts "Net Request failed: #{e.message}"
+        exit(0)
+    end
+
+    if response.code >= 200 && response.code < 300
+       response.body 
+    else
+        puts "Net Request failed, status code: #{response.code}"
         exit(0)
     end
 end
