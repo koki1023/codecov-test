@@ -23,5 +23,8 @@ jobs:
           command: bundle exec rails test
       - store_artifacts:
           path: coverage
+      - run:
+          name: notify coverage report url to pr
+          command: bundle exec ruby ./.circleci/comment.rb
 
 
